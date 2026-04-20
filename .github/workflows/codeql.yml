@@ -1,0 +1,48 @@
+name: "CodeQL C#"
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '0 3 * * 1'  # rulează săptămânal
+
+jobs:
+  analyze:
+    name: Analyze C#
+    runs-on: ubuntu-latest
+
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+    # 1. Checkout repo
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Setup .NET (IMPORTANT pentru C#)
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    # 3. Initialize CodeQL
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+
+    # 4. Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # 5. Build proiect
+    - name: Build
+      run: dotnet build --no-restore
+
+    # 6. Run CodeQL Analysis
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
