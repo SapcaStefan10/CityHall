@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - City Hall Management</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar shadow-lg">
+            <div class="brand">
+                <div class="brand-icon">
+                    <i class="fa-solid fa-landmark text-white"></i>
+                </div>
+                <div class="brand-text">City Hall MS</div>
+            </div>
+
+            <nav class="nav-menu">
+                <a class="nav-link-item active" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+                <a class="nav-link-item" asp-controller="CitizenRequest" asp-action="Index">
+                    <i class="fa-solid fa-file-invoice"></i> Requests
+                </a>
+                <a class="nav-link-item" asp-controller="Admin" asp-action="Departments">
+                    <i class="fa-solid fa-building-user"></i> Departments
+                </a>
+                <a class="nav-link-item" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-calendar-check"></i> Hearings
+                </a>
+                <a class="nav-link-item" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-folder-open"></i> Documents
+                </a>
+            </nav>
+
+            <div class="mt-auto">
+                <a class="nav-link-item text-danger" asp-controller="Account" asp-action="Logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-box">
+                    <h4 class="mb-0 font-weight-bold">@ViewData["Title"]</h4>
+                </div>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-profile">
+                        <i class="fa-solid fa-bell text-muted cursor-pointer"></i>
+                        <span class="text-muted">|</span>
+                        <div class="d-flex align-items-center gap-2">
+                             <img src="https://ui-avatars.com/api/?name=Admin&background=3b82f6&color=fff" width="32" height="32" class="rounded-circle" />
+                             <span class="fw-medium">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

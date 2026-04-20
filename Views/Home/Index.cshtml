@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid p-0">
+    <div class="row align-items-center mb-5">
+        <div class="col-md-8">
+            <h1 class="gradient-text display-4 mb-2">Welcome Back,</h1>
+            <p class="text-muted lead">System Overview for City Hall Administration & Citizen Services</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <button class="btn btn-primary-custom shadow-lg">
+                <i class="fa-solid fa-plus me-2"></i> New Request
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="dashboard-grid mb-5">
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="text-muted text-uppercase small font-weight-bold">Total Citizens</h5>
+                    <div class="stat-value">12,490</div>
+                </div>
+                <div class="brand-icon">
+                    <i class="fa-solid fa-users text-white"></i>
+                </div>
+            </div>
+            <div class="text-success small">
+                <i class="fa-solid fa-arrow-up me-1"></i> +12% from last month
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="text-muted text-uppercase small font-weight-bold">Active Requests</h5>
+                    <div class="stat-value">342</div>
+                </div>
+                <div class="brand-icon" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
+                    <i class="fa-solid fa-clipboard-list text-white"></i>
+                </div>
+            </div>
+            <div class="text-warning small">
+                <i class="fa-solid fa-clock me-1"></i> 82 pending resolution
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <h5 class="text-muted text-uppercase small font-weight-bold">Upcoming Hearings</h5>
+                    <div class="stat-value">18</div>
+                </div>
+                <div class="brand-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
+                    <i class="fa-solid fa-calendar-alt text-white"></i>
+                </div>
+            </div>
+            <div class="text-info small">
+                <i class="fa-solid fa-video me-1"></i> 4 scheduled today
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity & Quick Actions -->
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="glass-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">Recent Announcements</h5>
+                    <a href="#" class="btn btn-link text-accent-blue p-0">View All</a>
+                </div>
+                
+                <div class="list-group list-group-flush bg-transparent">
+                    <div class="list-group-item bg-transparent border-bottom border-light px-0 py-3">
+                        <div class="d-flex gap-3">
+                            <div class="brand-icon flex-shrink-0" style="width: 30px; height: 30px; border-radius: 8px;">
+                                <i class="fa-solid fa-bullhorn text-white small"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-1 text-white">New Public Safety Regulations</h6>
+                                <p class="text-muted mb-0 small">Effective from April 15th, 2026. Please review the updated documentation...</p>
+                            </div>
+                            <span class="ms-auto text-muted small">2h ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+            <div class="glass-card h-100">
+                <h5 class="mb-4">System Status</h5>
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded-circle bg-success shadow-success" style="width: 12px; height: 12px;"></div>
+                    <span class="text-white fw-medium">Core API Operational</span>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rounded-circle bg-success shadow-success" style="width: 12px; height: 12px;"></div>
+                    <span class="text-white fw-medium">Database (MySQL 8.0) Online</span>
+                </div>
+                <hr class="border-light opacity-10" />
+                <h6 class="text-muted small text-uppercase mb-3">Quick Search</h6>
+                <div class="input-group">
+                    <input type="text" class="form-control bg-transparent border-light text-white" placeholder="Search requests..." />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .shadow-success { box-shadow: 0 0 10px rgba(16, 185, 129, 0.4); }
+    .text-accent-blue { color: #3b82f6; }
+</style>

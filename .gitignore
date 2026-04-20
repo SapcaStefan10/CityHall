@@ -1,0 +1,56 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+out/
+publish/
+
+# Rider/IDE
+.idea/
+.vscode/
+
+# User-specific files
+*.log
+*.pid
+*.seed
+
+# ASP.NET Core/Secrets
+appsettings.Development.json
+secrets.json
+UserSecrets/
+
+# Entity Framework and databases
+*.db
+*.sqlite
+*.mdf
+*.ldf
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+
+# Dotnet publish/artifacts
+artifacts/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Optional: ignore client-side libraries restored to wwwroot by LibMan
+# Remove the following line if you commit these files to source control
+wwwroot/lib/
