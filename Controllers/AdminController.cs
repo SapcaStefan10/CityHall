@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
-using CityHallManagement.Models;
-using CityHallManagement.Services.Interfaces;
+using SElab5.Models;
+using SElab5.Services.Interfaces;
 
-namespace CityHallManagement.Controllers
+namespace SElab5.Controllers
 {
-    public class AccountController : Controller
+    public class AdminController : Controller
     {
         private readonly IUserService _userService;
 
-        public AccountController(IUserService userService)
+        public AdminController(IUserService userService)
         {
             _userService = userService;
         }
