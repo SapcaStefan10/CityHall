@@ -1,13 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
-using SElab5.Models;
+using CityHallManagement.Models;
 using System.Diagnostics;
+using CityHallManagement.Services.Interfaces;
 
-namespace SElab5.Controllers
+namespace CityHallManagement.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IDepartmentService _departmentService;
+
+        public HomeController(IDepartmentService departmentService)
         {
+            _departmentService = departmentService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var stats = await _departmentService.GetDashboardStatsAsync();
+            ViewBag.Stats = stats;
             return View();
         }
 
@@ -23,3 +33,4 @@ namespace SElab5.Controllers
         }
     }
 }
+

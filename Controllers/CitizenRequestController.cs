@@ -1,15 +1,32 @@
 using Microsoft.AspNetCore.Mvc;
-using SElab5.Models;
+using CityHallManagement.Models;
+using CityHallManagement.Services.Interfaces;
 
-namespace SElab5.Controllers
+namespace CityHallManagement.Controllers
 {
     public class CitizenRequestController : Controller
     {
-        // GET: /CitizenRequest/Index
-        public IActionResult Index()
+        private readonly IRequestService _requestService;
+
+        public CitizenRequestController(IRequestService requestService)
         {
-            // TODO: List requests (REQ-18)
-            return View();
+            _requestService = requestService;
+        }
+
+        // GET: /CitizenRequest/Index
+        public async Task<IActionResult> Index()
+        {
+            var role = HttpContext.Session.GetString("UserRole");
+            var userId = HttpContext.Session.GetInt32("UserID") ?? 1;
+
+            if (role == "Admin")
+            {
+                var allRequests = await _requestService.GetAllRequestsAsync(); // Need to implement this
+                return View(allRequests);
+            }
+
+            var requests = await _requestService.GetUserRequestsAsync(userId);
+            return View(requests);
         }
 
         // GET: /CitizenRequest/Submit
@@ -21,28 +38,36 @@ namespace SElab5.Controllers
 
         // POST: /CitizenRequest/Submit
         [HttpPost]
-        public IActionResult Submit(Request request)
+        public async Task<IActionResult> Submit(Request request)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Save request (REQ-11)
-                return RedirectToAction("Index");
+                var userId = HttpContext.Session.GetInt32("UserID") ?? 1;
+                request.CitizenID = userId;
+                var success = await _requestService.SubmitRequestAsync(request);
+                if (success)
+                {
+                    return RedirectToAction("Index");
+                }
             }
             return View(request);
         }
 
         // GET: /CitizenRequest/Status/{id}
-        public IActionResult Status(int id)
+        public async Task<IActionResult> Status(int id)
         {
-            // TODO: Fetch request status (REQ-14)
-            return View();
+            var request = await _requestService.GetRequestByIdAsync(id);
+            if (request == null) return NotFound();
+            return View(request);
         }
 
         // POST: /CitizenRequest/Delete/{id}
-        public IActionResult Delete(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
-            // TODO: Delete request (REQ-13)
+            var success = await _requestService.DeleteRequestAsync(id);
             return RedirectToAction("Index");
         }
     }
 }
+
