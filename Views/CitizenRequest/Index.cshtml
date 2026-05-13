@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SElab5.Models.Request>
+@{
+    ViewData["Title"] = "My Requests";
+}
+
+<div class="glass-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Track Your Requests</h2>
+        <a asp-action="Submit" class="btn btn-primary-custom">
+            <i class="fa-solid fa-plus me-2"></i> New Request
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-borderless text-white align-middle">
+            <thead class="text-muted small text-uppercase">
+                <tr class="border-bottom border-light opacity-50">
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Submitted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-medium">@item.Title</td>
+                        <td>
+                            <span class="badge @(item.Status == RequestStatus.Pending ? "bg-warning" : "bg-success")">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td>
+                            <span class="text-@(item.Priority == RequestPriority.High ? "danger" : "info")">
+                                @item.Priority
+                            </span>
+                        </td>
+                        <td class="small">@item.CreatedAt.ToShortDateString()</td>
+                        <td>
+                            <a asp-action="Status" asp-route-id="@item.RequestID" class="btn btn-sm btn-outline-light border-0">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@item.RequestID" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger border-0" onclick="return confirm('Delete this request?')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">No requests found. Start by submitting one!</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

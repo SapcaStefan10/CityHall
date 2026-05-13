@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SElab5.Models.Document>
+@{
+    ViewData["Title"] = "My Documents";
+}
+
+<div class="glass-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Digital Archive</h2>
+        <a asp-action="Upload" class="btn btn-primary-custom">
+            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Upload Document
+        </a>
+    </div>
+
+    <div class="row dashboard-grid">
+        @foreach (var item in Model)
+        {
+            <div class="glass-card">
+                <div class="brand-icon mb-3">
+                    <i class="fa-solid fa-file-pdf text-white"></i>
+                </div>
+                <h5 class="text-white">@item.FileName</h5>
+                <p class="text-muted small">@item.Category</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="small text-muted">@item.CreatedAt.ToShortDateString()</span>
+                    <div class="d-flex gap-2">
+                        <a href="~/@item.FilePath" target="_blank" class="btn btn-sm btn-outline-light border-0">
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                        <form asp-action="Delete" asp-route-id="@item.DocumentID" method="post">
+                            <button type="submit" class="btn btn-sm btn-outline-danger border-0">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <div class="col-12 text-center py-5 text-muted">
+                <i class="fa-solid fa-folder-open display-1 mb-3 opacity-25"></i>
+                <p>Your archive is empty. Keep all your official documents in one place!</p>
+            </div>
+        }
+    </div>
+</div>
+
