@@ -1,55 +1,81 @@
 using Microsoft.AspNetCore.Mvc;
-using SElab5.Models;
+using CityHallManagement.Models;
+using CityHallManagement.Services.Interfaces;
 
-namespace SElab5.Controllers
+namespace CityHallManagement.Controllers
 {
-    public class AdminController : Controller
+    public class AccountController : Controller
     {
-        // GET: /Admin/Dashboard
-        public IActionResult Dashboard()
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
         {
-            // TODO: Fetch dashboard statistics (REQ-67)
-            return View();
+            _userService = userService;
         }
 
-        // GET: /Admin/Departments
-        public IActionResult Departments()
-        {
-            // TODO: List departments (REQ-29)
-            return View();
-        }
-
-        // GET: /Admin/CreateDepartment
+        // GET: /Account/Login
         [HttpGet]
-        public IActionResult CreateDepartment()
+        public IActionResult Login()
         {
             return View();
         }
 
-        // POST: /Admin/CreateDepartment
+        // POST: /Account/Login
         [HttpPost]
-        public IActionResult CreateDepartment(Department department)
+        public async Task<IActionResult> Login(string email, string password)
+        {
+            var user = await _userService.AuthenticateAsync(email, password);
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UserID", user.UserID);
+                HttpContext.Session.SetString("UserFullName", user.FullName);
+                HttpContext.Session.SetString("UserRole", user.Role?.RoleName ?? "Citizen");
+                
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Invalid login attempt.");
+            return View();
+        }
+
+        // GET: /Account/Register
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        public async Task<IActionResult> Register(User user, string password)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Save department (REQ-21)
-                return RedirectToAction("Departments");
+                var success = await _userService.RegisterAsync(user, password);
+                if (success)
+                {
+                    return RedirectToAction("Login");
+                }
+                ModelState.AddModelError("Email", "Email already in use.");
             }
-            return View(department);
+            return View(user);
         }
 
-        // GET: /Admin/Employees
-        public IActionResult Employees()
+        // GET: /Account/Profile
+        public async Task<IActionResult> Profile(int id)
         {
-            // TODO: List employees (REQ-29)
-            return View();
+            var user = await _userService.GetUserProfileAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
         }
 
-        // GET: /Admin/OrgChart
-        public IActionResult OrgChart()
+        // GET: /Account/Logout
+        [HttpGet]
+        public IActionResult Logout()
         {
-            // TODO: Visualize org chart (REQ-24)
-            return View();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }
+
