@@ -41,3 +41,4 @@ namespace SElab5.Models
         public virtual Department Department { get; set; }
     }
 }
+

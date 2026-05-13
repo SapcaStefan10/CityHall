@@ -29,8 +29,8 @@ namespace SElab5.Models
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         // Navigation properties
-        public virtual User Citizen { get; set; }
-        public virtual Department Department { get; set; }
+        public virtual User? Citizen { get; set; }
+        public virtual Department? Department { get; set; }
     }
 
     public enum RequestStatus
@@ -48,3 +48,4 @@ namespace SElab5.Models
         High
     }
 }
+
