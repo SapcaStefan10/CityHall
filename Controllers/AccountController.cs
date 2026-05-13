@@ -1,10 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using SElab5.Models;
+using SElab5.Services.Interfaces;
 
 namespace SElab5.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AccountController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET: /Account/Login
         [HttpGet]
         public IActionResult Login()
@@ -14,13 +22,20 @@ namespace SElab5.Controllers
 
         // POST: /Account/Login
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public async Task<IActionResult> Login(string email, string password)
         {
-            // TODO: Implement authentication logic (REQ-2)
-            // 1. Check if user exists in DB
-            // 2. Validate password hash
-            // 3. Create session/cookie
-            return RedirectToAction("Dashboard", "Home");
+            var user = await _userService.AuthenticateAsync(email, password);
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UserID", user.UserID);
+                HttpContext.Session.SetString("UserFullName", user.FullName);
+                HttpContext.Session.SetString("UserRole", user.Role?.RoleName ?? "Citizen");
+                
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Invalid login attempt.");
+            return View();
         }
 
         // GET: /Account/Register
@@ -32,30 +47,35 @@ namespace SElab5.Controllers
 
         // POST: /Account/Register
         [HttpPost]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register(User user, string password)
         {
             if (ModelState.IsValid)
             {
-                // TODO: Implement registration logic (REQ-1)
-                // 1. Hash password
-                // 2. Save user to DB
-                return RedirectToAction("Login");
+                var success = await _userService.RegisterAsync(user, password);
+                if (success)
+                {
+                    return RedirectToAction("Login");
+                }
+                ModelState.AddModelError("Email", "Email already in use.");
             }
             return View(user);
         }
 
         // GET: /Account/Profile
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile(int id)
         {
-            // TODO: Fetch user profile (REQ-7)
-            return View();
+            var user = await _userService.GetUserProfileAsync(id);
+            if (user == null) return NotFound();
+            return View(user);
         }
 
-        // POST: /Account/Logout
+        // GET: /Account/Logout
+        [HttpGet]
         public IActionResult Logout()
         {
-            // TODO: Clear session (REQ-5)
-            return RedirectToAction("Index", "Home");
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }
+
