@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SElab5.Models
+namespace CityHallManagement.Models
 {
     public class User
     {
@@ -17,9 +17,8 @@ namespace SElab5.Models
         [StringLength(100)]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
-        public string PasswordHash { get; set; }
+        public string? PasswordHash { get; set; }
 
         [Required]
         public int RoleID { get; set; }
@@ -28,13 +27,14 @@ namespace SElab5.Models
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         // Navigation property
-        public virtual Role Role { get; set; }
+        public virtual Role? Role { get; set; }
     }
 
     public class Role
     {
         [Key]
         public int RoleID { get; set; }
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
     }
 }
+

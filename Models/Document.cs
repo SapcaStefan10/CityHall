@@ -1,19 +1,16 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SElab5.Models
+namespace CityHallManagement.Models
 {
     public class Document
     {
         [Key]
         public int DocumentID { get; set; }
 
-        [Required]
         [StringLength(255)]
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
-        [Required]
-        [StringLength(500)]
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
         public string Category { get; set; }
 
@@ -27,7 +24,8 @@ namespace SElab5.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation properties
-        public virtual User Owner { get; set; }
-        public virtual Department Department { get; set; }
+        public virtual User? Owner { get; set; }
+        public virtual Department? Department { get; set; }
     }
 }
+

@@ -1,4 +1,4 @@
-namespace SElab5.Models
+namespace CityHallManagement.Models
 {
     public class ErrorViewModel
     {
@@ -7,3 +7,4 @@ namespace SElab5.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+

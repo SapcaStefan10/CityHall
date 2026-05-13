@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SElab5.Models
+namespace CityHallManagement.Models
 {
     public class Department
     {
@@ -41,3 +41,4 @@ namespace SElab5.Models
         public virtual Department Department { get; set; }
     }
 }
+

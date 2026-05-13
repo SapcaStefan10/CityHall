@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SElab5.Models
+namespace CityHallManagement.Models
 {
     public class Hearing
     {
@@ -24,13 +24,13 @@ namespace SElab5.Models
         [Required]
         public HearingStatus Status { get; set; } = HearingStatus.Scheduled;
 
-        public string Transcript { get; set; }
+        public string? Transcript { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         // Navigation properties
-        public virtual User Citizen { get; set; }
-        public virtual User Employee { get; set; }
+        public virtual User? Citizen { get; set; }
+        public virtual User? Employee { get; set; }
     }
 
     public enum HearingStatus
@@ -40,3 +40,4 @@ namespace SElab5.Models
         Cancelled
     }
 }
+
