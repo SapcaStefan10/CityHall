@@ -7,3 +7,4 @@ namespace SElab5.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+
