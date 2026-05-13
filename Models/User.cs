@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CityHallManagement.Models
+namespace SElab5.Models
 {
     public class User
     {

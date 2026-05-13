@@ -1,4 +1,4 @@
-namespace CityHallManagement.Models
+namespace SElab5.Models
 {
     public class ErrorViewModel
     {
