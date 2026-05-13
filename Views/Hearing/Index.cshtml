@@ -1,0 +1,46 @@
+﻿@model IEnumerable<SElab5.Models.Hearing>
+@{
+    ViewData["Title"] = "My Hearings";
+}
+
+<div class="glass-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Scheduled Hearings</h2>
+        <a asp-action="Schedule" class="btn btn-primary-custom">
+            <i class="fa-solid fa-calendar-plus me-2"></i> Book Appointment
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-borderless text-white align-middle">
+            <thead class="text-muted small text-uppercase">
+                <tr class="border-bottom border-light opacity-50">
+                    <th>Title</th>
+                    <th>Date & Time</th>
+                    <th>Official</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.Title</td>
+                        <td>@item.ScheduledDate.ToString("MMM dd, yyyy HH:mm")</td>
+                        <td>@(item.Employee?.FullName ?? "Assigning...")</td>
+                        <td>
+                            <span class="badge bg-info">@item.Status</span>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center py-5 text-muted">No hearings scheduled.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

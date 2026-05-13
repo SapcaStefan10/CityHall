@@ -21,14 +21,14 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <h5 class="text-muted text-uppercase small font-weight-bold">Total Citizens</h5>
-                    <div class="stat-value">12,490</div>
+                    <div class="stat-value">@ViewBag.Stats.TotalUsers</div>
                 </div>
                 <div class="brand-icon">
                     <i class="fa-solid fa-users text-white"></i>
                 </div>
             </div>
             <div class="text-success small">
-                <i class="fa-solid fa-arrow-up me-1"></i> +12% from last month
+                <i class="fa-solid fa-arrow-up me-1"></i> Active users in system
             </div>
         </div>
 
@@ -36,29 +36,29 @@
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <h5 class="text-muted text-uppercase small font-weight-bold">Active Requests</h5>
-                    <div class="stat-value">342</div>
+                    <div class="stat-value">@ViewBag.Stats.TotalRequests</div>
                 </div>
                 <div class="brand-icon" style="background: linear-gradient(135deg, #10b981, #3b82f6);">
                     <i class="fa-solid fa-clipboard-list text-white"></i>
                 </div>
             </div>
             <div class="text-warning small">
-                <i class="fa-solid fa-clock me-1"></i> 82 pending resolution
+                <i class="fa-solid fa-clock me-1"></i> @ViewBag.Stats.PendingRequests pending resolution
             </div>
         </div>
 
         <div class="glass-card">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h5 class="text-muted text-uppercase small font-weight-bold">Upcoming Hearings</h5>
-                    <div class="stat-value">18</div>
+                    <h5 class="text-muted text-uppercase small font-weight-bold">Departments</h5>
+                    <div class="stat-value">@ViewBag.Stats.TotalDepartments</div>
                 </div>
                 <div class="brand-icon" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">
-                    <i class="fa-solid fa-calendar-alt text-white"></i>
+                    <i class="fa-solid fa-building text-white"></i>
                 </div>
             </div>
             <div class="text-info small">
-                <i class="fa-solid fa-video me-1"></i> 4 scheduled today
+                <i class="fa-solid fa-check me-1"></i> Fully operational
             </div>
         </div>
     </div>

@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var stats = ViewBag.Stats;
+}
+
+<div class="dashboard-grid">
+    <div class="glass-card">
+        <h5 class="text-muted small text-uppercase">Total Users</h5>
+        <div class="stat-value">@stats.TotalUsers</div>
+        <div class="small text-info">Registered accounts</div>
+    </div>
+
+    <div class="glass-card">
+        <h5 class="text-muted small text-uppercase">Active Requests</h5>
+        <div class="stat-value">@stats.TotalRequests</div>
+        <div class="small text-warning">@stats.PendingRequests Pending</div>
+    </div>
+
+    <div class="glass-card">
+        <h5 class="text-muted small text-uppercase">Departments</h5>
+        <div class="stat-value">@stats.TotalDepartments</div>
+        <div class="small text-success">Fully operational</div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <div class="glass-card">
+            <h3>Quick Management</h3>
+            <div class="d-flex gap-3 mt-4">
+                <a asp-action="Departments" class="btn btn-primary-custom">Manage Departments</a>
+                <a asp-action="Employees" class="btn btn-outline-light">Manage Employees</a>
+                <a asp-action="OrgChart" class="btn btn-outline-light">View Org Chart</a>
+            </div>
+        </div>
+    </div>
+</div>

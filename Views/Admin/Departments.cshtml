@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SElab5.Models.Department>
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<div class="glass-card">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>City Departments</h2>
+        <a asp-action="CreateDepartment" class="btn btn-primary-custom">
+            <i class="fa-solid fa-plus me-2"></i> Add Department
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover text-white">
+            <thead class="text-muted small text-uppercase">
+                <tr>
+                    <th>Department Name</th>
+                    <th>Description</th>
+                    <th>Manager</th>
+                    <th>Staff Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.DeptName</td>
+                        <td class="small">@item.Description</td>
+                        <td>@(item.Manager?.FullName ?? "Not Assigned")</td>
+                        <td>@(item.Employees?.Count ?? 0)</td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">No departments defined.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
